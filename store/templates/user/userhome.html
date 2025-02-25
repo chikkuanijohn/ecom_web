@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruits Shop - Fresh & Juicy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand img {
+            height: 60px;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        /* Hero Section */
+        /* .hero {
+            background: url('{% static 'images/imgfrt1.jpg' %}') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+        } */
+        .hero {
+    background: url("{% static 'images/imgfrt1.jpg' %}") no-repeat center center/cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    position: relative;
+}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text visibility */
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 40px 0;
+        }
+
+        .categories h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #28a745;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .category-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .category-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .category-item p {
+            font-size: 1.2rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .category-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Fruits Section */
+        .fruits-section {
+            padding: 40px 0;
+        }
+
+        .fruits-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #28a745;
+        }
+
+        .fruit-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .fruit-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .fruit-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .fruit-card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .fruit-card button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .fruit-card button:hover {
+            background-color: #218838;
+        }
+
+        .fruit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer h3 {
+            color: #ffc107;
+            margin-bottom: 20px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #28a745;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .categories h2, .fruits-section h2 {
+                font-size: 2rem;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .category-item img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .fruit-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'images/White Black Yellow Colorful Simple Fruit Juice Logo.png' %}" alt="Fruits Shop Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="./">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="About">About</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="booking-confirmation">Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="cart"> Cart</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Contact us</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="lout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>G-Tree</h1>
+            <p>Delivered to Your Doorstep</p>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <h2>Shop By Category</h2>
+        <div class="category-grid">
+            {% for c in category %}
+            <a href="products/{{ c.pk }}" class="category-item">
+                <img src="{{ c.cat_image.url }}" alt="{{ c.cat_name }}">
+                <p>{{ c.cat_name }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Fruits Section -->
+    <!-- <section class="fruits-section">
+        <div class="container">
+            <h2>Our Fresh Fruits</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="fruit-card">
+                        <img src="https://via.placeholder.com/300" alt="Apple">
+                        <h3>Apple</h3>
+                        <p>Fresh and crunchy apples straight from the orchard.</p>
+                        <button>Add to Cart</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fruit-card">
+                        <img src="https://via.placeholder.com/300" alt="Banana">
+                        <h3>Banana</h3>
+                        <p>Sweet and nutritious bananas for a healthy snack.</p>
+                        <button>Add to Cart</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fruit-card">
+                        <img src="https://via.placeholder.com/300" alt="Orange">
+                        <h3>Orange</h3>
+                        <p>Juicy oranges packed with vitamin C.</p>
+                        <button>Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <style>
+        /* Footer Styles */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px 0;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer a:hover {
+            color: #28a745;
+        }
+
+        .footer h5 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer .contact-info i {
+            color: #28a745;
+            margin-right: 10px;
+        }
+
+        .footer .social-icons a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            transition: 0.3s;
+            margin-right: 10px;
+        }
+
+        .footer .social-icons a:hover {
+            background-color: #28a745;
+        }
+
+        .footer .payment-icons img {
+            width: 50px;
+            margin: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            margin-top: 20px;
+            padding-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+
+                <!-- Contact Info -->
+                <div class="col-md-3">
+                    <h5>CONTACT INFO</h5>
+                    <p class="contact-info">
+                        <i class="fas fa-envelope"></i> <a href="mailto:info@gtree.in">info@gtree.in</a><br>
+                        <i class="fas fa-phone"></i> <a href="tel:+917006305700">+91 70063 05700</a><br>
+                        NH-44 192122, Opp. Fatimah Filling Station, kozhikodu,kerala J&K 192122
+                    </p>
+                    <!-- <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div> -->
+                </div>
+
+                <!-- Company Info -->
+                <div class="col-md-2">
+                    <h5>COMPANY</h5>
+                    <p><a href="#">About Us</a></p>
+                    <p><a href="#">Careers</a></p>
+                    <p><a href="#">CSR Policy</a></p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-2">
+                    <h5>QUICK LINKS</h5>
+                    <p><a href="#">Gifting Services</a></p>
+                    <p><a href="#">Bulk Order Services</a></p>
+                    <p><a href="#">Wholesale Enquiry</a></p>
+                    <p><a href="#">Payments</a></p>
+                </div>
+
+                <!-- Extras -->
+                <div class="col-md-2">
+                    <h5>EXTRAS</h5>
+                    <p><a href="#">Quality & Safety</a></p>
+                    <p><a href="#">Contact</a></p>
+                    <p><a href="#">Private Label</a></p>
+                </div>
+
+                <!-- Information -->
+                <div class="col-md-3">
+                    <h5>INFORMATION</h5>
+                    <p><a href="#">Privacy Policy</a></p>
+                    <p><a href="#">Terms and Conditions</a></p>
+                    <p><a href="#">Shipping, Returns, and Refunds</a></p>
+                    <div class="payment-icons">
+                        <img src="{% static 'images/gpay.png' %}" alt="GPay">
+                        <img src="{% static 'images/amazon.png' %}" alt="Amazon Pay">
+                        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/BHIM-logo.svg" alt="BHIM">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="MasterCard"> -->
+                        <img src="{% static 'images/visa.png' %}" alt="Visa">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 G-Tree. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

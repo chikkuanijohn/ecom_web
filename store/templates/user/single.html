@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    {% load static %}
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            max-width: 90%;
+            max-height: 90%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+
+        .product-image {
+            flex: 1;
+            max-width: 40%;
+            max-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            flex: 2;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 55%;
+        }
+
+        .product-info h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .product-info p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .product-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        .product-info ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-info ul li {
+            background-color: #f8f9fa;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button, .buy-now-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy-now-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+        }
+
+        .buy-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .product-detail {
+                flex-direction: column;
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .product-image {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .product-info {
+                max-width: 100%;
+            }
+
+            .product-info h1 {
+                font-size: 1.8rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            button, .buy-now-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="product-detail">
+        <div class="product-image">
+            <img src="{{ product.img.url }}" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.disc }}</p>
+
+            <h2>Choose Weight:</h2>
+            <form method="GET">
+                <select name="weight" id="weight" onchange="this.form.submit()" class="form-select">
+                    <option value="">Select weight</option>
+                    {% for weight in weights %}
+                        <option value="{{ weight.id }}" {% if weight.id|stringformat:"s" == selected_weight %}selected{% endif %}>
+                            {{ weight.product_weight }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+                        
+            {% if weight_details %}
+                <p>Weight: {{ weight_details.product_weight }}</p>
+                <p style="text-decoration: line-through; color: #e74c3c;">Price: ₹{{ weight_details.price }}</p>
+                <p style="font-weight: bold; color: #27ae60;">Offer Price: ₹{{ weight_details.offer_price }}</p>
+            
+                <div class="button-container">
+                    <!-- Add to Cart -->
+                    <form method="POST" action="{% url 'add_to_cart' pid=product.id weight_id=weight_details.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                    <a href="../../buy-now/{{ weight_details.pk }}" class="buy-now-btn">Buy Now</a>
+                </div>
+            {% else %}
+                <p style="color: #666;">Choose a weight to see pricing and details.</p>
+            {% endif %}            
+        </div>
+    </div>
+</body>
+</html>

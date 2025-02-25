@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #4a954f;
+        }
+        .form-container {
+            width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edit Product</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Product ID *</label>
+                <input type="text" id="pid" name="pid" value="{{ data.pid }}" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Product Name *</label>
+                <input type="text" id="name" name="name" value="{{ data.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category *</label>
+                <input type="text" id="category" name="category" value="{{ data.cat_id.cat_name }}" required>
+            </div>            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="disc" name="disc" rows="3">{{ data.disc }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="img">Product Image</label>
+                <input type="file" id="img" name="img" accept="image/*">
+                {% if data.img %}
+                    <p>Current Image: <img src="{{ data.img.url }}" alt="{{ data.name }}" style="max-width: 100px;"></p>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn">Update Product</button>
+        </form>
+    </div>
+</body>
+</html>

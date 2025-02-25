@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Body with animated fruit background */
+        body {
+            background: linear-gradient(135deg, #b4fca3, #8ff3a8);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+        }
+
+        /* Animated fruit floating effect */
+        .fruit {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            opacity: 0.7;
+            animation: float 10s infinite linear;
+        }
+
+        .fruit:nth-child(1) { top: 10%; left: 20%; animation-duration: 6s; }
+        .fruit:nth-child(2) { top: 30%; left: 60%; animation-duration: 8s; }
+        .fruit:nth-child(3) { top: 50%; left: 40%; animation-duration: 7s; }
+        .fruit:nth-child(4) { top: 70%; left: 80%; animation-duration: 5s; }
+        .fruit:nth-child(5) { top: 90%; left: 10%; animation-duration: 9s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Glassmorphism card */
+        .card {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Logo */
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Input Fields */
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #FF9800;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #E65100;
+            box-shadow: 0 0 8px rgba(230, 81, 0, 0.5);
+        }
+
+        /* Submit Button */
+        .btn-primary {
+            background-color: #FF9800;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #E65100;
+        }
+
+        /* Register Link */
+        .text-muted a {
+            color: #E65100;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .text-muted a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Fruits -->
+    <!-- <img src="{% static 'img/apple.png' %}" class="fruit" alt="Apple">
+    <img src="{% static 'img/orange.png' %}" class="fruit" alt="Orange">
+    <img src="{% static 'img/strawberry.png' %}" class="fruit" alt="Strawberry">
+    <img src="{% static 'img/banana.png' %}" class="fruit" alt="Banana">
+    <img src="{% static 'img/grape.png' %}" class="fruit" alt="Grape"> -->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card">
+                    <img class="logo" src="{% static 'images/White Black Yellow Colorful Simple Fruit Juice Logo.png' %}" alt="Website Logo">
+                    <h3 style="color: #E65100;">Login</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="text" class="form-control" name="email" placeholder="Enter your email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="psw" placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                Don't have an account? <a href="register">Register</a>
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
