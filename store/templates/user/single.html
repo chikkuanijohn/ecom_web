@@ -203,6 +203,9 @@
                     {% endfor %}
                 </select>
             </form>
+
+
+            
                         
             {% if weight_details %}
                 <p>Weight: {{ weight_details.product_weight }}</p>
@@ -218,7 +221,7 @@
                     <a href="../../buy-now/{{ weight_details.pk }}" class="buy-now-btn">Buy Now</a>
                 </div>
             {% else %}
-                <p style="color: #666;">Choose a weight to see pricing and details.</p>
+                <p style="color: #666;">Select a weight to see pricing and details...!</p>
             {% endif %}            
         </div>
     </div>
